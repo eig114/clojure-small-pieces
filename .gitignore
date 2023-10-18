@@ -1,0 +1,6 @@
+Makefile
+tangle
+tpd/
+env
+.dir-locals.el
+**/*~
