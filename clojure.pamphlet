@@ -68543,7 +68543,7 @@ public static void main(String[] args) throws Exception{
   (contains [this o] (boolean (some #(= % o) this)))
   (containsAll [this c] (every? #(.contains this %) c))
   (isEmpty [_] (zero? cnt))
-  ;;(toArray [this] (into-array Object this))
+  (toArray [this] (into-array Object this))
   (^objects toArray [this ^objects arr]
     (if (>= (count arr) cnt)
       (do
@@ -79534,7 +79534,8 @@ the sorting function."}
 
 
 (ns clojure.test-clojure.java-interop
-  (:use clojure.test))
+  (:use clojure.test)
+  (:require [clojure.set :as set]))
 
 ; http://clojure.org/java_interop
 ; http://clojure.org/compilation
@@ -79657,21 +79658,18 @@ the sorting function."}
             str)
         "chain chain chain")))
 
+(deftest test-bases
+  (are [x y] (set/subset? y (set x))
+      (bases java.lang.Math) #{java.lang.Object}
+      (bases java.lang.Integer) #{java.lang.Number java.lang.Comparable}))
 
-;; (deftest test-bases
-;;   (are [x y] (= x y)
-;;       (bases java.lang.Math)
-;;         (list java.lang.Object)
-;;       (bases java.lang.Integer)
-;;         (list java.lang.Number java.lang.Comparable) ))
-
-;; (deftest test-supers
-;;   (are [x y] (= x y)
-;;       (supers java.lang.Math)
-;;         #{java.lang.Object}
-;;       (supers java.lang.Integer)
-;;         #{java.lang.Number java.lang.Object
-;;           java.lang.Comparable java.io.Serializable} ))
+(deftest test-supers
+  (are [x y] (set/subset? y (set x))
+      (supers java.lang.Math)
+        #{java.lang.Object}
+      (supers java.lang.Integer)
+        #{java.lang.Number java.lang.Object
+          java.lang.Comparable java.io.Serializable} ))
 
 
 ; Arrays: [alength] aget aset [make-array to-array into-array 
