@@ -4,3 +4,15 @@ tpd/
 env
 .dir-locals.el
 **/*~
+
+# latex artifacts
+clojure.aux
+clojure.dvi
+clojure.idx
+clojure.ilg
+clojure.ind
+clojure.log
+clojure.out
+clojure.pdf
+clojure.toc
+
